@@ -56,3 +56,6 @@ The output json is an object containing arrays of each structure keyed on record
   residues: TODO
   chains: TODO
 ```
+
+## License
+MIT.  See LICENSE file.

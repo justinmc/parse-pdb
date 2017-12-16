@@ -1,5 +1,5 @@
 {
-  "name": "pdb",
+  "name": "parse-pdb",
   "version": "0.0.1",
   "description": "A parser for the Protein Data Bank (PDB) molecule format",
   "main": "index.js",
@@ -17,6 +17,10 @@
   ],
   "author": "Justin McCandless",
   "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/justinmc/parse-pdb.git"
+  },
   "devDependencies": {
     "chai": "^4.1.2",
     "eslint": "^4.13.1",

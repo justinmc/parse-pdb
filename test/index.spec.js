@@ -10,9 +10,25 @@ describe('parsePdb', () => {
       pdb = readFileSync('./dat/3aid.pdb', 'utf8');
     });
 
-    it('does it', () => {
-      const parsed = parsePdb(pdb);
-      expect(typeof parsed).to.equal('object');
+    it('reads the right number of atoms and reads the first atom correctly', () => {
+      const { atoms } = parsePdb(pdb);
+      const firstAtom = atoms[0];
+
+      expect(atoms).to.have.lengthOf(1846);
+      expect(firstAtom).to.have.property('serial', 1);
+      expect(firstAtom).to.have.property('name', 'N');
+      expect(firstAtom).to.have.property('altLoc', '');
+      expect(firstAtom).to.have.property('resName', 'PRO');
+      expect(firstAtom).to.have.property('chainID', 'A');
+      expect(firstAtom).to.have.property('resSeq', 1);
+      expect(firstAtom).to.have.property('iCode', '');
+      expect(firstAtom).to.have.property('x', -2.555);
+      expect(firstAtom).to.have.property('y', 9.253);
+      expect(firstAtom).to.have.property('z', 34.411);
+      expect(firstAtom).to.have.property('occupancy', 1.0);
+      expect(firstAtom).to.have.property('tempFactor', 30.6);
+      expect(firstAtom).to.have.property('element', 'N');
+      expect(firstAtom).to.have.property('charge', '');
     });
   });
 });

@@ -59,7 +59,8 @@ describe('parsePdb', () => {
       const chainA = chains.get('A');
 
       expect(chains).to.have.property('size', 2);
-      expect(chainA).to.have.property('id', 'A');
+      expect(chainA).to.have.property('id', 0);
+      expect(chainA).to.have.property('chainID', 'A');
       expect(chainA).to.have.property('residues');
       expect(chainA.residues).to.have.lengthOf(99);
       expect(chainA.residues[0]).to.have.property('id', 0);

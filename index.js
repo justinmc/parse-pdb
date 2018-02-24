@@ -52,7 +52,8 @@ module.exports = function parsePdb(pdb) {
 
       if (!chains.get(seqResEntry.chainID)) {
         chains.set(seqResEntry.chainID, {
-          id: seqResEntry.chainID,
+          id: chains.size,
+          chainID: seqResEntry.chainID,
           // No need to save numRes, can just do chain.residues.length
         });
       }
@@ -62,7 +63,7 @@ module.exports = function parsePdb(pdb) {
   // Add residues to chains
   chains.forEach((chain) => {
     chain.residues = residues.filter((residue) =>
-      residue.chainID === chain.id,
+      residue.chainID === chain.chainID,
     );
   });
 

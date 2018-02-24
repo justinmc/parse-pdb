@@ -43,7 +43,7 @@ The output json is an object containing arrays of each structure keyed on record
     name: string
     altLoc: string
     resName: string
-    chainId: string
+    chainID: string
     resSeq: integer
     iCode: string
     x: float
@@ -53,8 +53,22 @@ The output json is an object containing arrays of each structure keyed on record
     tempFactor: float
     element: string
     charge: string
-  residues: TODO
-  chains: TODO
+  seqRes:
+    serNum: integer
+    chainID: string
+    numRes: integer
+    resNames: array of strings
+  residues:
+    id: integer (count)
+    serNum: integer
+    chainID: string
+    resName: string
+  chains: Map
+    key: chainID
+    value:
+      id: integer (count)
+      chainID: string
+      residues: array of residues
 ```
 
 ## License

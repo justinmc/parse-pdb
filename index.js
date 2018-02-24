@@ -67,6 +67,13 @@ module.exports = function parsePdb(pdb) {
     );
   });
 
+  // Add atoms to residues
+  residues.forEach((residue) => {
+    residue.atoms = atoms.filter((atom) =>
+      atom.chainID === residue.chainID && atom.resSeq === residue.serNum,
+    );
+  });
+
   return {
     // Raw data from pdb
     atoms,

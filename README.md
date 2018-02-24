@@ -1,5 +1,5 @@
 # parse-pdb
-A simple utility for parsing PDB files into an easily useable JSON format.
+A simple utility for parsing PDB files into an easily useable JSON format that handles atoms ,residues, and chains.
 
 ## Getting Started
 
@@ -63,6 +63,7 @@ The output json is an object containing arrays of each structure keyed on record
     serNum: integer
     chainID: string
     resName: string
+    atoms: array of atoms
   chains: Map
     key: chainID
     value:

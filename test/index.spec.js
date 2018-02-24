@@ -52,6 +52,11 @@ describe('parsePdb', () => {
       expect(firstResidue).to.have.property('serNum', 1);
       expect(firstResidue).to.have.property('chainID', 'A');
       expect(firstResidue).to.have.property('resName', 'PRO');
+      expect(firstResidue).to.have.property('atoms');
+      expect(firstResidue.atoms).to.have.lengthOf(9);
+      expect(firstResidue.atoms[0]).to.have.property('resSeq', 1);
+      expect(firstResidue.atoms[0]).to.have.property('chainID', 'A');
+      expect(firstResidue.atoms[0]).to.have.property('resName', 'PRO');
     });
 
     it('reads chains correctly', () => {

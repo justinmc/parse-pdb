@@ -1,5 +1,5 @@
 # parse-pdb
-A simple utility for parsing PDB files into an easily useable JSON format that handles atoms ,residues, and chains.
+A simple utility for parsing PDB files into an easily useable JSON format that handles atoms, residues, and chains.
 
 ## Getting Started
 

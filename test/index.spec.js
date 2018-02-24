@@ -30,5 +30,39 @@ describe('parsePdb', () => {
       expect(firstAtom).to.have.property('element', 'N');
       expect(firstAtom).to.have.property('charge', '');
     });
+
+    it('reads seqRes correctly', () => {
+      const { seqRes } = parsePdb(pdb);
+      const firstSeqRes = seqRes[0];
+
+      expect(seqRes).to.have.lengthOf(16);
+      expect(firstSeqRes).to.have.property('serNum', 1);
+      expect(firstSeqRes).to.have.property('chainID', 'A');
+      expect(firstSeqRes).to.have.property('numRes', 99);
+      expect(firstSeqRes.resNames).to.have.length(13);
+      expect(firstSeqRes.resNames[0]).to.equal('PRO');
+    });
+
+    it('reads residues correctly', () => {
+      const { residues } = parsePdb(pdb);
+      const firstResidue = residues[0];
+
+      expect(residues).to.have.lengthOf(198);
+      expect(firstResidue).to.have.property('id', 0);
+      expect(firstResidue).to.have.property('serNum', 1);
+      expect(firstResidue).to.have.property('chainID', 'A');
+      expect(firstResidue).to.have.property('resName', 'PRO');
+    });
+
+    it('reads chains correctly', () => {
+      const { chains } = parsePdb(pdb);
+      const chainA = chains.get('A');
+
+      expect(chains).to.have.property('size', 2);
+      expect(chainA).to.have.property('id', 'A');
+      expect(chainA).to.have.property('residues');
+      expect(chainA.residues).to.have.lengthOf(99);
+      expect(chainA.residues[0]).to.have.property('id', 0);
+    });
   });
 });

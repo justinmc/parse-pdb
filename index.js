@@ -1,4 +1,5 @@
 const ATOM_NAME = 'ATOM  ';
+const RESIDUE_NAME = 'SEQRES';
 
 /**
  * Parses the given PDB string into json
@@ -8,6 +9,9 @@ const ATOM_NAME = 'ATOM  ';
 module.exports = function parsePdb(pdb) {
   const pdbLines = pdb.split('\n');
   const atoms = [];
+  const seqRes = []; // raw SEQRES entry data
+  let residues = []; // individual residue data parsed from SEQRES
+  const chains = new Map(); // individual rchaindata parsed from SEQRES
 
   // Iterate each line looking for atoms
   pdbLines.forEach((pdbLine) => {
@@ -29,10 +33,45 @@ module.exports = function parsePdb(pdb) {
         element: pdbLine.substring(76, 78).trim(),
         charge: pdbLine.substring(78, 80).trim(),
       });
+    } else if (pdbLine.substr(0, 6) === RESIDUE_NAME) {
+      // http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#SEQRES
+      const seqResEntry = {
+        serNum: parseInt(pdbLine.substring(7, 10)),
+        chainID: pdbLine.substring(11, 12).trim(),
+        numRes: parseInt(pdbLine.substring(13, 17)),
+        resNames: pdbLine.substring(19, 70).trim().split(' '),
+      };
+      seqRes.push(seqResEntry);
+
+      residues = residues.concat(seqResEntry.resNames.map(resName => ({
+        id: residues.length,
+        serNum: seqResEntry.serNum,
+        chainID: seqResEntry.chainID,
+        resName,
+      })));
+
+      if (!chains.get(seqResEntry.chainID)) {
+        chains.set(seqResEntry.chainID, {
+          id: seqResEntry.chainID,
+          // No need to save numRes, can just do chain.residues.length
+        });
+      }
     }
   });
 
+  // Add residues to chains
+  chains.forEach((chain) => {
+    chain.residues = residues.filter((residue) =>
+      residue.chainID === chain.id,
+    );
+  });
+
   return {
+    // Raw data from pdb
     atoms,
+    seqRes,
+    // Derived
+    residues, // Array of residue objects
+    chains, // Map of chain objects keyed on chainID
   };
 }

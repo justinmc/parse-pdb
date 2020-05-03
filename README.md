@@ -1,6 +1,8 @@
 # parse-pdb
 A simple utility for parsing PDB files into an easily useable JSON format that handles atoms, residues, and chains.
 
+See also [parse-pdb-rust](https://github.com/justinmc/parse-pdb-rust).
+
 ## Getting Started
 
   npm install --save parse-pdb
